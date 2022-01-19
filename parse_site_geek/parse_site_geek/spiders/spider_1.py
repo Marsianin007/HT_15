@@ -1,9 +1,8 @@
 import datetime
 import scrapy
 
+# from parse_site_geek.parse_site_geek.items import ParseSiteItem
 
-
-#from parse_site_geek.parse_site_geek.items import ParseSiteItem
 
 def get_date():
     date_check = True
@@ -18,7 +17,7 @@ def get_date():
     if valid_date.date() > datetime.datetime.now().date():
         date_check = False
 
-    return date_check
+    return date_check, date
 
 
 class ParseSiteItem(scrapy.Item):
@@ -26,18 +25,21 @@ class ParseSiteItem(scrapy.Item):
     news_text = scrapy.Field()
     tegs = scrapy.Field()
     link = scrapy.Field()
+    date = scrapy.Field()
 
 
 class SiteSpider(scrapy.Spider):
-    # def start_requests(self):
-    #    if get_date():
-    #        yield scrapy.Request(url=self.start_urls[0], callback=self.parse)
-    #    else:
-    #        self.start_requests()
+    date, date_check = None, None
+
+    def start_requests(self):
+        SiteSpider.date_check, SiteSpider.date = get_date()
+        while SiteSpider.date_check is False:
+            SiteSpider.date_check, SiteSpider.date = get_date()
+        else:
+            yield scrapy.Request(url=self.start_urls[0] + str(SiteSpider.date), callback=self.parse)
 
     name = "site_spider"
-    start_urls = ["https://www.vikka.ua/2022/01/18/"]
-
+    start_urls = ["https://www.vikka.ua/"]
 
     def parse(self, response):
         for link in response.xpath("//h2[@class='title-cat-post']//a/@href"):
@@ -49,9 +51,5 @@ class SiteSpider(scrapy.Spider):
         item["news_text"] = response.xpath("//div[@class='entry-content -margin-b']/p/text()").getall()
         item["tegs"] = response.xpath("//a[@class='post-tag']/text()").getall()
         item["link"] = response.url
+        item["date"] = self.date
         yield item
-
-
-
-
-

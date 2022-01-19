@@ -17,9 +17,8 @@ class ParseSiteGeekPipeline(object):
         print("Tegs: " + ", ".join(item["tegs"]))
         print("Link: " + item["link"])
 
-
-
-        with open ("my_file.csv", 'a') as file:
+        date_to_csv = item["date"].replace("/", "_")
+        with open(f"{date_to_csv}.csv", 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow(str_to_print)
+            writer.writerow([str_to_print])
         return item

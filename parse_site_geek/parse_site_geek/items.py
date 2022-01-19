@@ -4,15 +4,10 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from scrapy.loader import ItemLoader
 
 
-
-class ParseSiteGeekItem(scrapy.Item):
+class ParseSiteItem(scrapy.Item):
     title = scrapy.Field()
     news_text = scrapy.Field()
     tegs = scrapy.Field()
-
-
-class SiteItemLoader(ItemLoader):
-    pass
+    link = scrapy.Field()

@@ -5,9 +5,21 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
 
+import csv
 
-class ParseSiteGeekPipeline:
+class ParseSiteGeekPipeline(object):
     def process_item(self, item, spider):
+
+        str_to_print = ";".join([item["title"], "".join(item["news_text"]), ", ".join(item["tegs"]), item["link"]])
+        print("Title: " + item["title"])
+        print("News_text: " + "".join(item["news_text"]))
+        print("Tegs: " + ", ".join(item["tegs"]))
+        print("Link: " + item["link"])
+
+
+
+        with open ("my_file.csv", 'a') as file:
+            writer = csv.writer(file)
+            writer.writerow(str_to_print)
         return item

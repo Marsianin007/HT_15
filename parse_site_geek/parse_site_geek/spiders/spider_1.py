@@ -1,7 +1,8 @@
 import datetime
 import scrapy
 
-# from parse_site_geek.parse_site_geek.items import ParseSiteItem
+from parse_site_geek.items import ParseSiteItem
+
 
 
 def get_date():
@@ -18,14 +19,6 @@ def get_date():
         date_check = False
 
     return date_check, date
-
-
-class ParseSiteItem(scrapy.Item):
-    title = scrapy.Field()
-    news_text = scrapy.Field()
-    tegs = scrapy.Field()
-    link = scrapy.Field()
-    date = scrapy.Field()
 
 
 class SiteSpider(scrapy.Spider):

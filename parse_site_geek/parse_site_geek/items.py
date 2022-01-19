@@ -11,3 +11,4 @@ class ParseSiteItem(scrapy.Item):
     news_text = scrapy.Field()
     tegs = scrapy.Field()
     link = scrapy.Field()
+    date = scrapy.Field()

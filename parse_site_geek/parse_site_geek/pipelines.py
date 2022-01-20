@@ -18,10 +18,10 @@ class ParseSiteGeekPipeline(object):
         print("Link: " + item["link"])
 
         str_news = " ".join(item["news_text"])
-        str_tegs = ", ".join(item["tegs"])
+        str_tegs = "#".join(item["tegs"])
 
         date_to_csv = item["date"].replace("/", "_")
-        with open(f"{date_to_csv}.csv", 'a', newline='', encoding='Windows-1251') as file:
-            writer = csv.writer(file,dialect='excel', delimiter=';')
+        with open(f"{date_to_csv}.csv", 'a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, dialect='excel', delimiter=';')
             writer.writerow([item["title"], str_news, str_tegs, item["link"]])
         return item

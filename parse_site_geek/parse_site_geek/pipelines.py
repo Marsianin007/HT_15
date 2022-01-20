@@ -8,6 +8,7 @@
 
 import csv
 
+#збереження данних у файл csv
 class ParseSiteGeekPipeline(object):
     def process_item(self, item, spider):
 

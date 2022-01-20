@@ -12,14 +12,14 @@ import csv
 class ParseSiteGeekPipeline(object):
     def process_item(self, item, spider):
 
-        str_to_print = ";".join([item["title"], "".join(item["news_text"]), ", ".join(item["tegs"]), item["link"]])
+        str_to_print = "; ".join([item["title"], "".join(item["news_text"]), ", ".join(item["tegs"]), item["link"]])
         print("Title: " + item["title"])
         print("News_text: " + "".join(item["news_text"]))
         print("Tegs: " + ", ".join(item["tegs"]))
         print("Link: " + item["link"])
 
         date_to_csv = item["date"].replace("/", "_")
-        with open(f"{date_to_csv}.csv", 'a', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
+        with open(f"{date_to_csv}.csv", 'a', newline='', encoding='Windows-1251') as file:
+            writer = csv.writer(file, delimiter=';')
             writer.writerow([str_to_print])
         return item
